@@ -4,10 +4,18 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- master
+- azure-pipelines
+
+strategy:
+  matrix:
+    linux:
+      imageName: "ubuntu-latest"
+    windows:
+      imageName: "windows-latest"
+  maxParallel: 2
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: $(imageName)
 
 variables:
   buildConfiguration: 'Release'
