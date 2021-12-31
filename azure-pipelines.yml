@@ -14,6 +14,10 @@ variables:
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
-- task: PublishPipelineArtifact@1
+- task: DotNetCoreCLI@2
+  displayName: Publish
   inputs:
-    targetPath: '$(Pipeline.Workspace)'
+    command: publish
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
+    zipAfterPublish: True
